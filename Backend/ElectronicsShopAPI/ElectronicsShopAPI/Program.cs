@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,12 @@ builder.Services.AddCors(options => {
         b => b.AllowAnyHeader()
             .AllowAnyOrigin()
             .AllowAnyMethod());
+});
+
+// DatabaseContext
+var connectionString = builder.Configuration.GetConnectionString("ElectronicsShopSqlConnectionString");
+builder.Services.AddDbContext<ElectronicsShopAPI.Data.ElectronicsShopDbContext>(options => {
+    options.UseSqlServer(connectionString);
 });
 
 // End of extra non-default services
