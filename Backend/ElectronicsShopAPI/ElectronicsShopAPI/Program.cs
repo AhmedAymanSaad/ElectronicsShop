@@ -1,4 +1,6 @@
 using ElectronicsShopAPI.Data.Configurations;
+using ElectronicsShopAPI.IRepository;
+using ElectronicsShopAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -30,6 +32,17 @@ builder.Services.AddDbContext<ElectronicsShopAPI.Data.ElectronicsShopDbContext>(
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
+
+// UnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// IRepository
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IDiscountTypeRepository, DiscountTypeRepository>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
+
 
 // End of extra non-default services
 
