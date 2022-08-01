@@ -3,6 +3,7 @@ using ElectronicsShopAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElectronicsShopAPI.Migrations
 {
     [DbContext(typeof(ElectronicsShopDbContext))]
-    partial class ElectronicsShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220801052433_AddedAtrrInProduct")]
+    partial class AddedAtrrInProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,3 +1,4 @@
+using ElectronicsShopAPI.Data.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -27,6 +28,9 @@ builder.Services.AddDbContext<ElectronicsShopAPI.Data.ElectronicsShopDbContext>(
     options.UseSqlServer(connectionString);
 });
 
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(MapperInitializer));
+
 // End of extra non-default services
 
 var app = builder.Build();
@@ -40,6 +44,7 @@ if (app.Environment.IsDevelopment())
 
 // Add extra Services to app
 app.UseCors("AllowAll");
+
 // End of extra Services
 
 app.UseHttpsRedirection();
