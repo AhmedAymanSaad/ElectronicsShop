@@ -27,5 +27,60 @@ namespace ElectronicsShopAPI.Controllers
             var categoriesDTO = _mapper.Map<IEnumerable<CategoryDTO>>(categories);
             return Ok(categoriesDTO);
         }
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var category = _categoryRepository.GetById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            var categoryDTO = _mapper.Map<CategoryDTO>(category);
+            return Ok(categoryDTO);
+        }
+        [HttpGet("GetRange")]
+        public IActionResult GetRange(int skip=0, int take=1)
+        {
+            var categories = _categoryRepository.GetRange(skip, take);
+            var categoriesDTO = _mapper.Map<IEnumerable<CategoryDTO>>(categories);
+            return Ok(categoriesDTO);
+        }
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateCategoryDTO categoryDTO)
+        {
+            if (categoryDTO == null)
+            {
+                return BadRequest();
+            }
+            var category = _mapper.Map<Category>(categoryDTO);
+            _categoryRepository.Add(category);
+            _unitOfWork.Save();
+            return Ok(categoryDTO);
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var category = _categoryRepository.GetById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _categoryRepository.Delete(category);
+            _unitOfWork.Save();
+            return NoContent();
+        }
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] CreateCategoryDTO categoryDTO)
+        {
+            if (categoryDTO == null)
+            {
+                return BadRequest();
+            }
+            var category = _mapper.Map<Category>(categoryDTO);
+            _categoryRepository.Update(category);
+            _unitOfWork.Save();
+            return Ok(categoryDTO);
+        }
+
     }
 }

@@ -8,6 +8,7 @@ namespace ElectronicsShopAPI.IRepository
         IEnumerable<T> GetAll();
         T GetById(int id);
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+        IEnumerable<T> GetRange(int skip, int take);
 
         //Create operations
         void Add(T entity);

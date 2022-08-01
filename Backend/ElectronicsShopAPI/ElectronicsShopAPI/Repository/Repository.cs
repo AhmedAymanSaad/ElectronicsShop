@@ -41,6 +41,11 @@ namespace ElectronicsShopAPI.Repository
             return _context.Set<T>().Find(id);
         }
 
+        public IEnumerable<T> GetRange(int skip, int take)
+        {
+            return _context.Set<T>().Skip(skip).Take(take);
+        }
+
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);

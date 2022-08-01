@@ -8,4 +8,10 @@ namespace ElectronicsShopAPI.Data
         [Required]
         public string? CategoryName { get; set; }
     }
+
+    public class CreateCategoryDTO
+    {
+        [Required]
+        public string? CategoryName { get; set; }
+    }
 }
