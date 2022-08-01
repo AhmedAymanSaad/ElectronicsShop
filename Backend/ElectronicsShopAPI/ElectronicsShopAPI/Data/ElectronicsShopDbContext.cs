@@ -1,9 +1,10 @@
 ﻿using ElectronicsShopAPI.Data.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElectronicsShopAPI.Data
 {
-    public class ElectronicsShopDbContext: DbContext
+    public class ElectronicsShopDbContext: IdentityDbContext<User>
     {
         public ElectronicsShopDbContext(DbContextOptions options) : base(options)
         {
@@ -21,6 +22,8 @@ namespace ElectronicsShopAPI.Data
             modelBuilder.ApplyConfiguration(new DiscountConfiguration());
             modelBuilder.ApplyConfiguration(new DiscountTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
         }
     }

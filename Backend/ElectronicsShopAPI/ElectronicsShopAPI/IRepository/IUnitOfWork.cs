@@ -8,6 +8,7 @@ namespace ElectronicsShopAPI.IRepository
         IProductRepository Products { get; }
         IDiscountRepository Discounts { get; }
         IDiscountTypeRepository DiscountTypes { get; }
+        //IUserRepository Users { get; }
         void Save();
         
     }

@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ElectronicsShopAPI.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ElectronicsShopAPI.Data
+namespace ElectronicsShopAPI.Models
 {
     public class DiscountDTO
     {

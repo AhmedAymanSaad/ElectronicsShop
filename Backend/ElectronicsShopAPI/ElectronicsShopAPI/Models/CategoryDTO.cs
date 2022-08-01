@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ElectronicsShopAPI.Data
+namespace ElectronicsShopAPI.Models
 {
     public class CategoryDTO
     {

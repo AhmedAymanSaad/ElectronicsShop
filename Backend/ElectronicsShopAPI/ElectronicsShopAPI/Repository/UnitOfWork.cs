@@ -13,7 +13,8 @@ namespace ElectronicsShopAPI.Repository
             Discounts = new DiscountRepository(_context);
             DiscountTypes = new DiscountTypeRepository(_context);
             Products = new ProductRepository(_context);
-            
+            //Users = new UserRepository(_context);
+
         }
 
         public ICategoryRepository Categories { get; private set; }
@@ -25,6 +26,7 @@ namespace ElectronicsShopAPI.Repository
 
 
         public IDiscountTypeRepository DiscountTypes { get; private set; }
+        //public IUserRepository Users { get; private set; }
 
 
         void IDisposable.Dispose()

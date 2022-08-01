@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using ElectronicsShopAPI.Data;
 using ElectronicsShopAPI.IRepository;
+using ElectronicsShopAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +30,7 @@ namespace ElectronicsShopAPI.Controllers
             return Ok(categoriesDTO);
         }
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetById(int id)
         {
             var category = _categoryRepository.GetById(id);
@@ -58,6 +61,7 @@ namespace ElectronicsShopAPI.Controllers
             return Ok(categoryDTO);
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Delete(int id)
         {
             var category = _categoryRepository.GetById(id);

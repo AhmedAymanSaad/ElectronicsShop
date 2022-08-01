@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ElectronicsShopAPI.Models;
 
 namespace ElectronicsShopAPI.Data.Configurations
 {
@@ -14,6 +15,12 @@ namespace ElectronicsShopAPI.Data.Configurations
             CreateMap<DiscountType, DiscountTypeDTO>().ReverseMap();
             
             CreateMap<Product, ProductDTO>().ReverseMap();
+
+            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, RegisterUserDTO>().ReverseMap();
+            CreateMap<User, LoginUserDTO>().ReverseMap();
+            CreateMap<User, AuthUserDTO>().ReverseMap();
+            CreateMap<User, IdUserDTO>().ReverseMap();
         }
     }
 }
