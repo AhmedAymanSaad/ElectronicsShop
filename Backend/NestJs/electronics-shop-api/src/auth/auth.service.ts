@@ -36,7 +36,9 @@ export class AuthService {
         const isPasswordMatching = await this.comparePassword(loginUserDto.password, user.password);
         if (!isPasswordMatching)
             throw new Error('Password does not match');
-        return this.usersService._mapAuthUserDto(user);
+        const res = this.usersService._mapAuthUserDto(user);
+        
+        return res;
     }
 
     async login(loginUserDto: LoginUserDto) : Promise<AuthUserDto> {

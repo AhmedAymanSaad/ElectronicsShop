@@ -22,16 +22,18 @@ export class UsersService {
   }
 
   _mapAuthUserDto(user: any): AuthUserDto {
-    const authToken = null;
-    const roles = null;
+    var authToken = null;
+    var roles = null;
     try{
-      const authToken = user.authToken;
-      const roles = user.roles;
+      authToken = user.authToken;
+      roles = user.roles;
+      
     }catch(err){
-      const authToken = null;
+      
+      authToken = null;
       const roles = null;
     }
-
+    
     return {
       userId: user.id,
       authToken: authToken,

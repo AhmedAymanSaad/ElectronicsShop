@@ -8,5 +8,6 @@ export class AuthUserDto {
     @IsString()
     @IsNotEmpty()
     authToken: string;
+    @IsNotEmpty()
     roles: string[];
 }
