@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  ElectronicsShopDB:
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      MONGODB_DATABASE: electronics-shop
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - '5003:6379'
+    environment:
+      REDIS_DB: 0
+    

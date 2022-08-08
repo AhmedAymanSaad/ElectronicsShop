@@ -1,0 +1,1 @@
+export const BESTSELLER_COUNT = 5;
