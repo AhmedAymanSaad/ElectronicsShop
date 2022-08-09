@@ -17,56 +17,63 @@
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto text-right">
         <b-nav-item-dropdown text="Manager" right v-show="isAdmin">
-          <b-dropdown-item @click="goToAddProduct"
-            >Add Product</b-dropdown-item
-          >
+          <b-dropdown-item @click="goToAddProduct">Add Product</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
   </div>
 
   Bestsellers:
-    <div>
-      <b-button v-if="false" ref="refresh" @click="getBestsellers" variant="primary"></b-button>
-      <keep-alive>
-    <span>
-      <span v-for="(product, im) in bestsellerList" :key="im" inline>
-        <product-cards
-          inline
-          :image="product.product[0].image"
-          :name="product.product[0].name"
-          :price="product.product[0].price"
-          :index="im"
-          :prodId="product.product[0]._id"
-          :Description="product.product[0].description"
-          @getProduct="getProduct"
-        ></product-cards>
+  <div>
+    <b-button
+      v-if="false"
+      ref="refresh"
+      @click="getBestsellers"
+      variant="primary"
+    ></b-button>
+    <keep-alive>
+      <span>
+        <span v-for="(product, im) in bestsellerList" :key="im" inline>
+          <product-cards
+            inline
+            :image="product.product[0].image"
+            :name="product.product[0].name"
+            :price="product.product[0].price"
+            :index="im"
+            :prodId="product.product[0]._id"
+            :Description="product.product[0].description"
+            @getProduct="getProduct"
+          ></product-cards>
+        </span>
       </span>
-    </span>
     </keep-alive>
-    </div>
+  </div>
 
   Products:
-    <div>
-      <b-button v-if="false" ref="refresh" @click="getAllProducts" variant="primary"></b-button>
-      <keep-alive>
-    <span>
-      <span v-for="(product, im) in productsList" :key="im" inline>
-        <product-cards
-          inline
-          :image="product.image"
-          :name="product.name"
-          :price="product.price"
-          :index="im"
-          :prodId="product._id"
-          :Description="product.description"
-          @getProduct="getProduct"
-        ></product-cards>
+  <div>
+    <b-button
+      v-if="false"
+      ref="refresh"
+      @click="getAllProducts"
+      variant="primary"
+    ></b-button>
+    <keep-alive>
+      <span>
+        <span v-for="(product, im) in productsList" :key="im" inline>
+          <product-cards
+            inline
+            :image="product.image"
+            :name="product.name"
+            :price="product.price"
+            :index="im"
+            :prodId="product._id"
+            :Description="product.description"
+            @getProduct="getProduct"
+          ></product-cards>
+        </span>
       </span>
-    </span>
     </keep-alive>
-    </div>
-  
+  </div>
 </template>
 
 <script>
@@ -113,14 +120,11 @@ export default {
       );
     },
     getBestsellers() {
-      axios.get("orders/products/bestsellers").then(
-        (response) => {
-          console.log(response.data);
-          this.bestsellerList = response.data;
-        }
-      );
+      axios.get("orders/products/bestsellers").then((response) => {
+        console.log(response.data);
+        this.bestsellerList = response.data;
+      });
     },
-    
   },
   components: {
     ProductCards: ProductCards,
@@ -146,7 +150,6 @@ export default {
     this.getAllProducts();
     this.getBestsellers();
   },
-
 };
 </script>
 

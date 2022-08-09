@@ -37,7 +37,7 @@ const router = createRouter({
           next({ name: "HomePage" });
         }
       },
-      },
+    },
     {
       path: "/Register",
       component: Register,
@@ -62,8 +62,10 @@ const router = createRouter({
           next();
         } else {
           console.log("Access Denied");
-          next({ name: "Error",
-          params: { errorCode: 401, errorMsg: "Access Denied" } });
+          next({
+            name: "Error",
+            params: { errorCode: 401, errorMsg: "Access Denied" }
+          });
         }
       }
     },
@@ -78,9 +80,6 @@ const router = createRouter({
       component: ErrorPage,
       props: true,
     },
-    
-
-
   ],
 });
 

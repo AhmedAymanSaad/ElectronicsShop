@@ -52,14 +52,18 @@ export default {
   },
   methods: {
     signInUser() {
-        const store = useUserStore();
-      axios.post("auth/login",this.user).then(
-      //this.$http.post("auth/login", this.user).then(
+      const store = useUserStore();
+      axios.post("auth/login", this.user).then(
+        //this.$http.post("auth/login", this.user).then(
         (response) => {
           console.log(response);
           this.$router.push({ name: "HomePage" });
-          store.userSignIn(response.data.authToken, response.data.userId, response.data.roles,io);
-          
+          store.userSignIn(
+            response.data.authToken,
+            response.data.userId,
+            response.data.roles,
+            io
+          );
         },
         (error) => {
           console.log(error);

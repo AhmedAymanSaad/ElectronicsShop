@@ -8,11 +8,11 @@ var bcrypt = require('bcryptjs');
 
 @Injectable()
 export class AuthService {
-    constructor(private usersService: UsersService, private jwtService: JwtService) {}
-    async hashPassword(password: string) : Promise<string> {
+    constructor(private usersService: UsersService, private jwtService: JwtService) { }
+    async hashPassword(password: string): Promise<string> {
         return await bcrypt.hash(password, 10);
     }
-    async register(createUserDto: CreateUserDto) : Promise<AuthUserDto> {
+    async register(createUserDto: CreateUserDto): Promise<AuthUserDto> {
         const exisitingUser = await this.usersService.findOneByEmail(createUserDto.email);
         if (exisitingUser)
             throw new HttpException('User already exists', 409);
@@ -22,14 +22,14 @@ export class AuthService {
         createUserDto.password = hashedPassword;
         createUserDto.roles = ['user'];
         const user = await this.usersService.create(createUserDto);
-        return this.login({email: createUserDto.email, password: passwordPassed});
+        return this.login({ email: createUserDto.email, password: passwordPassed });
     }
 
-    async comparePassword(password: string, hashedPassword: string) : Promise<boolean> {
+    async comparePassword(password: string, hashedPassword: string): Promise<boolean> {
         return await bcrypt.compare(password, hashedPassword);
     }
 
-    async validateUser(loginUserDto: LoginUserDto) : Promise<AuthUserDto> {
+    async validateUser(loginUserDto: LoginUserDto): Promise<AuthUserDto> {
         const user = await this.usersService.findOneByEmail(loginUserDto.email);
         if (!user)
             throw new HttpException('Invalid credentials', 401);
@@ -37,11 +37,11 @@ export class AuthService {
         if (!isPasswordMatching)
             throw new HttpException('Invalid password', 401);
         const res = this.usersService._mapAuthUserDto(user);
-        
+
         return res;
     }
 
-    async login(loginUserDto: LoginUserDto) : Promise<AuthUserDto> {
+    async login(loginUserDto: LoginUserDto): Promise<AuthUserDto> {
         const user = await this.validateUser(loginUserDto);
         const jwt = await this.jwtService.signAsync({ user });
         user.authToken = jwt;

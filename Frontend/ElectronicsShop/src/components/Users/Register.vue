@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { useUserStore } from '@/stores/user.data';
+import { useUserStore } from "@/stores/user.data";
 import axios from "axios";
 export default {
   name: "Register",
@@ -58,29 +58,34 @@ export default {
   },
   methods: {
     onSubmit() {
-        const store = useUserStore();
+      const store = useUserStore();
       this.submitted = true;
       if (!(this.validation && this.validateConfirmPass)) {
         console.log("validation failed, request aborted");
         return;
       }
-        axios.post("auth/register", this.formData).then(
-            (response) => {
-            console.log(response);  
-            store.userSignIn(response.data.authToken, response.data.userId, response.data.roles,io);
-            
-            console.log(store.userId);
-            console.log(store.authToken);
-            console.log(store.roles);
-            this.$router.push({ name: "HomePage" });
-            },
-            (error) => {
-            console.log(error);
-            this.serverError = true;
-            this.errorMsg = error.response.data.message;
-            }
-        );
-        /*
+      axios.post("auth/register", this.formData).then(
+        (response) => {
+          console.log(response);
+          store.userSignIn(
+            response.data.authToken,
+            response.data.userId,
+            response.data.roles,
+            io
+          );
+
+          console.log(store.userId);
+          console.log(store.authToken);
+          console.log(store.roles);
+          this.$router.push({ name: "HomePage" });
+        },
+        (error) => {
+          console.log(error);
+          this.serverError = true;
+          this.errorMsg = error.response.data.message;
+        }
+      );
+      /*
       this.$http.post("customers/", this.formData).then(
         (response) => {
           console.log(response);
@@ -100,7 +105,7 @@ export default {
   },
   computed: {
     validation() {
-        return true;
+      return true;
       if (!this.submitted) {
         return null;
       }
@@ -111,7 +116,7 @@ export default {
       );
     },
     validatePasswordLength() {
-      if (!this.submitted) {  
+      if (!this.submitted) {
         return true;
       }
       return this.formData.password.length > 8;
@@ -129,7 +134,7 @@ export default {
       return /[a-zA-Z]/.test(this.formData.password);
     },
     validateConfirmPass() {
-        return true;
+      return true;
       if (!this.submitted || !this.validation) {
         return null;
       }

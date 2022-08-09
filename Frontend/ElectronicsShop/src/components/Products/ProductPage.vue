@@ -72,11 +72,11 @@ export default {
       };
       console.log(this.quantity);
       axios
-        .post("orders", body,config)
+        .post("orders", body, config)
         .then((response) => {
           console.log(response.data);
           this.createdRun = true;
-            this.$router.push({ name: "HomePage" });
+          this.$router.push({ name: "HomePage" });
         })
         .catch((error) => {
           console.log(error);

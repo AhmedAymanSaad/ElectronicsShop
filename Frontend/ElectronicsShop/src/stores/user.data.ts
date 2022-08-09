@@ -14,7 +14,7 @@ export const useUserStore = defineStore({
         },
     },
     actions: {
-        userSignIn(authToken: string, userId: string, roles: string[],io:any) {
+        userSignIn(authToken: string, userId: string, roles: string[], io: any) {
             var socket = io.connect("ws://localhost:3000");
             this.auth = authToken;
             this.userId = userId;
