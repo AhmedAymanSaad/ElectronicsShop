@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthUserDto } from 'src/users/dto/auth-user.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
@@ -15,7 +15,7 @@ export class AuthService {
     async register(createUserDto: CreateUserDto) : Promise<AuthUserDto> {
         const exisitingUser = await this.usersService.findOneByEmail(createUserDto.email);
         if (exisitingUser)
-            throw new Error('User already exists');
+            throw new HttpException('User already exists', 409);
 
         const hashedPassword = await this.hashPassword(createUserDto.password);
         const passwordPassed = createUserDto.password;
@@ -32,10 +32,10 @@ export class AuthService {
     async validateUser(loginUserDto: LoginUserDto) : Promise<AuthUserDto> {
         const user = await this.usersService.findOneByEmail(loginUserDto.email);
         if (!user)
-            throw new Error('User does not exist');
+            throw new HttpException('Invalid credentials', 401);
         const isPasswordMatching = await this.comparePassword(loginUserDto.password, user.password);
         if (!isPasswordMatching)
-            throw new Error('Password does not match');
+            throw new HttpException('Invalid password', 401);
         const res = this.usersService._mapAuthUserDto(user);
         
         return res;

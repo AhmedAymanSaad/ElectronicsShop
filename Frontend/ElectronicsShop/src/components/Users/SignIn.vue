@@ -58,9 +58,7 @@ export default {
         (response) => {
           console.log(response);
           this.$router.push({ name: "HomePage" });
-          store.authToken = response.data.authToken;
-            store.userId = response.data.userId;
-            store.roles = response.data.roles;
+          store.userSignIn(response.data.authToken, response.data.userId, response.data.roles,io);
           
         },
         (error) => {

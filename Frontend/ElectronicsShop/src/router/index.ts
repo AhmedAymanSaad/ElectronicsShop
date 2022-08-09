@@ -3,6 +3,10 @@ import HomeView from "../views/HomeView.vue";
 import SignIn from "@/components/Users/SignIn.vue";
 import { useUserStore } from "@/stores/user.data";
 import Register from "@/components/Users/Register.vue";
+import HomePage from "@/components/MainPage/HomePage.vue";
+import AddProduct from "@/components/Products/AddProduct.vue";
+import ProductPage from "@/components/Products/ProductPage.vue";
+import ErrorPage from "@/components/MainPage/ErrorPage.vue";
 
 
 
@@ -10,9 +14,14 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: "/test",
+      name: "Home",
+      component: HomeView,
+    },
+    {
       path: "/",
       name: "HomePage",
-      component: HomeView,
+      component: HomePage,
     },
     {
       path: "/SignIn",
@@ -43,6 +52,34 @@ const router = createRouter({
         }
       },
     },
+    {
+      path: "/AddProduct",
+      name: "AddProduct",
+      component: AddProduct,
+      beforeEnter(to, from, next) {
+        const store = useUserStore();
+        if (store.roles.includes("admin")) {
+          next();
+        } else {
+          console.log("Access Denied");
+          next({ name: "Error",
+          params: { errorCode: 401, errorMsg: "Access Denied" } });
+        }
+      }
+    },
+    {
+      path: "/ProductPage/:id",
+      name: "ProductPage",
+      component: ProductPage,
+    },
+    {
+      path: "/Error",
+      name: "Error",
+      component: ErrorPage,
+      props: true,
+    },
+    
+
 
   ],
 });

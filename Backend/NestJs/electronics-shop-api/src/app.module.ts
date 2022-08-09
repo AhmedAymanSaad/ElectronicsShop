@@ -9,6 +9,9 @@ import { AuthModule } from './auth/auth.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import * as redisStore from 'cache-manager-redis-store';
 
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+
 @Module({
   imports: [UsersModule, 
     MongooseModule.forRoot('mongodb://localhost:27017/electronics-shop'), 
@@ -21,6 +24,10 @@ import * as redisStore from 'cache-manager-redis-store';
     ProductsModule, OrdersModule, AuthModule, NotificationsModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },],
 })
 export class AppModule {}

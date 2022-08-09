@@ -62,14 +62,24 @@ export class OrdersService {
       {
         $group:
         {
-          _id: { productId: "$productId" },
+          _id: "$productId",
           totalAmount: { $sum: "$quantity" },
         }
       },
       {
         $sort: { totalAmount: -1 }
-      }
-    ]).limit(BESTSELLER_COUNT);
+      },
+      {
+        $limit: BESTSELLER_COUNT
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "_id",
+          foreignField: "_id",
+          as: "product"
+        }
+      }]).exec();
     //await this.cacheManager.set("bestsellers", allProducts, { ttl: 60 * 60 * 24 });
     //console.log("cache set");
     console.log("bestsellers");
@@ -84,5 +94,10 @@ export class OrdersService {
     this.noftificationsGateway.sendNotificationOrderDelivered(orderup.userId.toString());
     console.log("order delivered");
     return orderup;
+  }
+
+  async findPending() {
+    const res = await this.orderModel.find({ status: "pending" }).exec();
+    return res;
   }
 } 

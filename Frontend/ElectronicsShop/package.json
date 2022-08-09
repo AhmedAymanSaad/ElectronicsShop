@@ -18,6 +18,7 @@
     "pinia": "^2.0.17",
     "pinia-plugin-persistedstate": "^2.1.0",
     "vue": "^3.2.37",
+    "vue-3-socket.io": "^1.0.5",
     "vue-router": "^4.1.2"
   },
   "devDependencies": {

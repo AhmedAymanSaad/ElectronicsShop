@@ -39,7 +39,7 @@ export class OrdersController {
   }
   @Get('/products/bestsellers')
   @UseInterceptors(CacheInterceptor)
-  @CacheKey('b')
+  @CacheKey('orders:bestsellers')
   findBestsellers() {
     return this.ordersService.findBestsellers();
   }
@@ -48,5 +48,11 @@ export class OrdersController {
   @UseGuards(JwtGuard, RolesGuard)
   updateStatusDelivered(@Param('id') id: string) {
     return this.ordersService.updateStatusDelivered(id);
+  }
+  @Get('/delivery/pending')
+  @Roles(Role.Delivery)
+  @UseGuards(JwtGuard, RolesGuard)
+  findPending() {
+    return this.ordersService.findPending();
   }
 }

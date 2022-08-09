@@ -67,9 +67,8 @@ export default {
         axios.post("auth/register", this.formData).then(
             (response) => {
             console.log(response);  
-            store.userId = response.data.userId;
-            store.authToken = response.data.authToken;
-            store.roles = response.data.roles;
+            store.userSignIn(response.data.authToken, response.data.userId, response.data.roles,io);
+            
             console.log(store.userId);
             console.log(store.authToken);
             console.log(store.roles);
