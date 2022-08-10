@@ -97,7 +97,30 @@ export class OrdersService {
   }
 
   async findPending() {
-    const res = await this.orderModel.find({ status: "pending" }).exec();
+    const res = await this.orderModel.aggregate([
+      {
+        $match: {
+          status: "pending"
+        }
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "productId",
+          foreignField: "_id",
+          as: "product"
+        }
+      }
+    ]).exec();
+    
     return res;
   }
 } 

@@ -7,6 +7,7 @@ import HomePage from "@/components/MainPage/HomePage.vue";
 import AddProduct from "@/components/Products/AddProduct.vue";
 import ProductPage from "@/components/Products/ProductPage.vue";
 import ErrorPage from "@/components/MainPage/ErrorPage.vue";
+import DeliveryOrders from "@/components/Users/DeliveryOrders.vue";
 
 
 
@@ -80,6 +81,11 @@ const router = createRouter({
       component: ErrorPage,
       props: true,
     },
+    {
+      path: "/DeliveryOrders",
+      name: "DeliveryOrders",
+      component: DeliveryOrders,
+    }
   ],
 });
 

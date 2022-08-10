@@ -16,8 +16,9 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto text-right">
-        <b-nav-item-dropdown text="Manager" right v-show="isAdmin">
-          <b-dropdown-item @click="goToAddProduct">Add Product</b-dropdown-item>
+        <b-nav-item-dropdown text="Manager" right v-show="isAdmin || isDelivery">
+          <b-dropdown-item @click="goToAddProduct" v-show="isAdmin">Add Product</b-dropdown-item>
+          <b-dropdown-item @click="goToDeliveryOrders" v-show="isDelivery">Delivery Orders</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
@@ -105,6 +106,9 @@ export default {
     goToAddProduct() {
       this.$router.push({ name: "AddProduct" });
     },
+    goToDeliveryOrders() {
+      this.$router.push({ name: "DeliveryOrders" });
+    },
     getProduct(id) {
       this.$router.push({ name: "ProductPage", params: { id: id } });
     },
@@ -144,6 +148,10 @@ export default {
     isAdmin() {
       const store = useUserStore();
       return store.roles.includes("admin");
+    },
+    isDelivery() {
+      const store = useUserStore();
+      return store.roles.includes("delivery");
     },
   },
   created() {
